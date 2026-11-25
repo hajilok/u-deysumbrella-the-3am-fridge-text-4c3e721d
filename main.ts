@@ -5,12 +5,16 @@ const OUTPUT_FILE = `${OUTPUT_DIR}/entry.txt`;
 const MAX_CHARS = 140;
 
 const ENTRY_TEXT: string =
-  "You've had your cousin's 2022 wedding magnet on my face for four years. They're divorced. Take it off.";
+  "Up? I'm chilling a $120 eye cream next to a loose hot dog. Are we rich or not?";
 
 function validateEntry(text: string): void {
   const charCount: number = Array.from(text).length;
+  const byteCount: number = Buffer.byteLength(text, "utf8");
   if (charCount < 1 || charCount > MAX_CHARS) {
     throw new Error(`Entry length ${charCount} outside allowed range 1..${MAX_CHARS}`);
+  }
+  if (byteCount < 1) {
+    throw new Error("Entry must not be empty");
   }
   if (text.trim().length === 0) {
     throw new Error("Entry must not be whitespace only");
